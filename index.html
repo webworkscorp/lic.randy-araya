@@ -4,26 +4,33 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Randy Araya - Consultoría Legal de Prestigio</title>
+    <title>C. Rodríguez & Asociados | Consultoría Contable de Élite</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@200;300;400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+SC:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700&family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet"/>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "gold": "#B59A5A",
-              "black-pure": "#000000",
-              "gray-dark": "#111111",
+              "gold": "#D4AF37", 
+              "teal-firm": "#3EB489",
+              "black-pure": "#0A0A0A",
+              "gray-light": "#F9F9F9",
+              "gray-border": "#F0F0F0",
             },
             fontFamily: {
-              "brand": ["Cinzel", "serif"],
-              "serif": ["Playfair Display", "serif"],
-              "sans": ["Inter", "sans-serif"],
+              "brand": ["Cormorant SC", "serif"],
+              "serif": ["Cardo", "serif"],
+              "sans": ["Montserrat", "sans-serif"],
             },
-            letterSpacing: {
-                "ultra-wide": "0.3em",
-                "tight-logo": "-0.02em"
+            animation: {
+              'marquee': 'marquee 100s linear infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' },
+              }
             }
           },
         },
@@ -32,94 +39,49 @@
     <style type="text/tailwindcss">
         @layer base {
             body {
-                @apply bg-black-pure text-white font-sans antialiased;
+                @apply bg-white text-black-pure font-serif antialiased;
             }
-        }
-        .luxury-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #B59A5A, transparent);
-        }
-        .editorial-border {
-            border: 0.5px solid rgba(181, 154, 90, 0.3);
         }
         .selection-gold {
-            @apply selection:bg-gold selection:text-black-pure;
+            @apply selection:bg-teal-firm selection:text-white;
         }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #B59A5A;
-        }
-
-        /* Enhanced Metallic Gold Effect - Liquid Gold */
-        .text-metallic {
-            background: linear-gradient(
-                to right, 
-                #BF953F 0%, 
-                #FCF6BA 20%, 
-                #B38728 40%, 
-                #FBF5B7 60%, 
-                #AA771C 80%, 
-                #BF953F 100%
-            );
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 6s linear infinite;
-            display: inline-block;
-            line-height: 1.1;
-            padding-bottom: 0.05em;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
+        
+        /* Animaciones de Revelación "Primer Mundo" */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1), 
+                        transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+            will-change: opacity, transform;
         }
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        .delay-100 { transition-delay: 150ms; }
-        .delay-200 { transition-delay: 300ms; }
-        .delay-300 { transition-delay: 450ms; }
-        .delay-400 { transition-delay: 600ms; }
-        .delay-500 { transition-delay: 750ms; }
 
-        @keyframes revealHeroBg {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        @keyframes revealHeroText {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes revealLine {
-            0% { width: 0; }
-            100% { width: 40px; }
-        }
-
-        .animate-hero-reveal {
-            animation: revealHeroBg 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-text-reveal {
+        /* Staggered children reveals */
+        .reveal-stagger > * {
             opacity: 0;
-            animation: revealHeroText 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), 
+                        transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
-        .animate-line-reveal {
-            animation: revealLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+        .reveal-stagger.active > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger.active > *:nth-child(1) { transition-delay: 0.1s; }
+        .reveal-stagger.active > *:nth-child(2) { transition-delay: 0.2s; }
+        .reveal-stagger.active > *:nth-child(3) { transition-delay: 0.3s; }
+        .reveal-stagger.active > *:nth-child(4) { transition-delay: 0.4s; }
+        .reveal-stagger.active > *:nth-child(5) { transition-delay: 0.5s; }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 <script type="importmap">
@@ -135,7 +97,37 @@
 </head>
 <body class="selection-gold overflow-x-hidden">
     <div id="root"></div>
-    <!-- CRITICAL FIX: Load the application script -->
     <script type="module" src="index.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, observerOptions);
+
+        const observeElements = () => {
+          document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+            observer.observe(el);
+          });
+        };
+
+        // Retrasa la observación inicial para dar tiempo al navegador a renderizar la página
+        setTimeout(() => {
+          observeElements();
+          
+          // El MutationObserver también se inicializa después del retraso
+          const mutationObserver = new MutationObserver(observeElements);
+          mutationObserver.observe(document.body, { childList: true, subtree: true });
+        }, 200); // Retraso de 200ms
+      });
+    </script>
 </body>
 </html>
